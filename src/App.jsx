@@ -13,11 +13,13 @@ function App() {
         Accept: "application/json",
               "Content-Type": "application/json",
       },
-      data: JSON.stringify({
+      body: JSON.stringify({
         email: email,
         password: password,
       })}).then (response => response.json())
-      .then((data)=> console.log(data)) 
+      .then((data)=> {
+        console.log(data);
+        localStorage.setItem("token", data.accessToken)}) 
     }
 
 

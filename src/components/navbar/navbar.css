@@ -1,0 +1,8 @@
+.nav-container{
+    display: flex;
+    gap: 5px;
+
+}
+.nav-container a{
+    color: blue;
+}
