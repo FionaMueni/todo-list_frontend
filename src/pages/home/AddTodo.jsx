@@ -3,6 +3,9 @@ import Navbar from '../../components/navbar/navbar';
 import {useNavigate} from 'react-router-dom'
 
 const AddTodo = () => {
+
+    const token = localStorage.getItem('token');
+
     const [todo, setTodo] = useState("");
     const navigate = useNavigate()
     const submitForm = (event) =>{
@@ -12,6 +15,8 @@ const AddTodo = () => {
             headers: {
                 Accept : "application/json",
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+                
             },
             body: JSON.stringify({
                 todo,
@@ -19,6 +24,12 @@ const AddTodo = () => {
         }).then((response)=>response.json()).then((data)=>{
             if(data.message === "Todo created successfully") {
                 navigate("/home");
+
+                if(data == "Token is invalid") {
+                    localStorage.clear();
+                    navigate("/")
+    
+                }
 
             }
         })

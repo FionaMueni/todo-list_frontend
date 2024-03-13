@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -18,8 +20,17 @@ function App() {
         password: password,
       })}).then (response => response.json())
       .then((data)=> {
-        console.log(data);
-        localStorage.setItem("token", data.accessToken)}) 
+     
+        if (data.accessToken){
+          console.log(data.accessToken);
+          localStorage.setItem("token", data.accessToken);
+          setTimeout(function () {
+            navigate("/home")
+         }, 1000);
+         
+        }
+  
+      });
     }
 
 
