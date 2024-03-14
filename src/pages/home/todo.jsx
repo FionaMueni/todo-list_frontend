@@ -22,7 +22,7 @@ const navigate = useNavigate()
             return response.json();
         }).then((info) => {
             if(info == "Token is invalid") {
-                // localStorage.clear();
+                localStorage.clear();
                 navigate("/")
 
             }
@@ -55,13 +55,16 @@ const navigate = useNavigate()
             <Navbar/>
             {todos && todos.map((todo, index)=>{
                 return (
-                    <div key= {index} className='flex items-center gap-3'>
+                    <div key= {index} className='flex items-center gap-3 flex-col'>
+                        <div className='flex'>
                         <h2>{todo.todo}</h2>
                         <IconEdit color="blue" className='cursor-pointer' onClick={()=>{
                             setIsEdit(!isEdit);
                             setIsEditId(todo._id)
                         }}/>
                         <IconTrash onClick={()=> deleteTodo(todo._id)} size={20} color="red" className='cursor-pointer'/>
+                        </div>
+                        <img src={todo.image}/>
                     </div>
                 )
             })}
